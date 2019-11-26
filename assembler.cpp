@@ -149,8 +149,7 @@ void secondPass(string input_file, map<string, int> labelMap) {
   ifstream inFile;
   inFile.open(input_file);
 
-  // // Output file
-
+  // Output file
   string output = "";
 
   if (inFile.is_open()) {
@@ -169,17 +168,21 @@ void secondPass(string input_file, map<string, int> labelMap) {
         // Get the op code binary string.
         binaryCode += opCodeMapToBinary[tokens[0]];
 
-        // Get the binary string of reg/decimal/lable.
-        string firstArg = getBinaryRegDecLabel(tokens[1], labelMap, index + 1);
+        if (tokens[0] == "nop") {
+          binaryCode += "00000000";
+        } else {
+          // Get the binary string of reg/decimal/lable.
+          string firstArg = getBinaryRegDecLabel(tokens[1], labelMap, index + 1);
 
-        // Only set the top bit if it's an immediate.
-        if (firstArg.length() < 7) {
-          binaryCode += "00";
-        }
-        binaryCode += firstArg;
+          // Only set the top bit if it's an immediate.
+          if (firstArg.length() < 7) {
+            binaryCode += "00";
+          }
+          binaryCode += firstArg;
 
-        if (tokens.size() > 2) {
-          binaryCode += getBinaryRegDecLabel(tokens[2], labelMap, index + 1);
+          if (tokens.size() > 2) {
+            binaryCode += getBinaryRegDecLabel(tokens[2], labelMap, index + 1);
+          }
         }
         binaryCode += "\n";
         output += binaryCode;
