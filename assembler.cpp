@@ -169,7 +169,7 @@ void secondPass(string input_file, map<string, int> labelMap) {
         binaryCode += opCodeMapToBinary[tokens[0]];
 
         if (tokens[0] == "nop") {
-          binaryCode += "00000000";
+          binaryCode += "000000000000";
         } else {
           // Get the binary string of reg/decimal/lable.
           string firstArg = getBinaryRegDecLabel(tokens[1], labelMap, index + 1);
